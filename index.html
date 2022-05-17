@@ -1,54 +1,66 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+</head>
 
-<style>
-    .arjs-loader {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .arjs-loader div {
-        text-align: center;
-        font-size: 1.25em;
-        color: white;
-    }
-</style>
-
-<body style="margin : 0px; overflow: hidden;">
-<!-- minimal loader shown until image descriptors are loaded -->
-<div class="arjs-loader">
-    <div>Loading, please wait...</div>
-</div>
+<body style="margin: 0; overflow: hidden;">
 <a-scene
-        vr-mode-ui="enabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
-        embedded
-        arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
->
-    <!-- we use cors proxy to avoid cross-origin problems -->
-    <a-nft
-            type="nft"
-            url="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance=".01"
-            smoothThreshold="5"
-    >
-        <a-entity
-                gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-                scale="5 5 5"
-                position="50 150 0"
-        >
-        </a-entity>
-    </a-nft>
-    <a-entity camera></a-entity>
+        xrextras-gesture-detector
+        landing-page
+        xrextras-loading
+        xrextras-runtime-error
+        renderer="colorManagement: true"
+        xrweb="allowedDevices: any">
+    <!-- We can define assets here to be loaded when A-Frame initializes -->
+    <a-assets>
+        <!-- Credit to Poly by Google for the model: https://poly.google.com/view/5ZMAz7_ucTn -->
+        <a-asset-item id="sandCastleModel" src="models/dino.gltf"></a-asset-item>
+    </a-assets>
+    <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+    <a-camera
+            id="camera"
+            position="0 8 8"
+            raycaster="objects: .cantap"
+            cursor="fuse: false; rayOrigin: mouse;">
+    </a-camera>
+    <a-entity
+            light="
+      type: directional;
+      intensity: 0.8;
+      castShadow: true;
+      shadowMapHeight:2048;
+      shadowMapWidth:2048;
+      shadowCameraTop: 10;
+      target: #model;
+      shadowRadius: 12"
+            xrextras-attach="target: model; offset: 1 15 3;"
+            shadow>
+    </a-entity>
+    <a-light type="ambient" intensity="0.7"></a-light>
+    <a-entity
+            id="model"
+            gltf-model="#sandCastleModel"
+            class="cantap"
+            xrextras-hold-drag
+            xrextras-two-finger-rotate
+            xrextras-pinch-scale
+            scale="3 3 3"
+            shadow="receive: false">
+    </a-entity>
+    <a-plane
+            id="ground"
+            rotation="-90 0 0"
+            width="1000"
+            height="1000"
+            material="shader: shadow"
+            shadow>
+    </a-plane>
 </a-scene>
 </body>
+</html>
