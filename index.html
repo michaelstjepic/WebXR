@@ -1,67 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>GeoAR.js demo</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
-</head>
 
-<body style="margin: 0; overflow: hidden;">
-<a-scene
-        xrextras-gesture-detector
-        landing-page
-        xrextras-loading
-        xrextras-runtime-error
-        renderer="colorManagement: true"
-        xrweb="allowedDevices: any">
-    <!-- We can define assets here to be loaded when A-Frame initializes -->
-    <a-assets>
-        <!-- Credit to Poly by Google for the model: https://poly.google.com/view/5ZMAz7_ucTn -->
-        <a-asset-item id="sandCastleModel" src="models/dino.glb"></a-asset-item>
-    </a-assets>
-    <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
-    <a-camera
-            id="camera"
-            position="0 8 8"
-            raycaster="objects: .cantap"
-            cursor="fuse: false; rayOrigin: mouse;">
-    </a-camera>
-    <a-entity
-            light="
-      type: directional;
-      intensity: 0.8;
-      castShadow: true;
-      shadowMapHeight:2048;
-      shadowMapWidth:2048;
-      shadowCameraTop: 10;
-      target: #model;
-      shadowRadius: 12"
-            xrextras-attach="target: model; offset: 1 15 3;"
-            shadow>
-    </a-entity>
-    <a-light type="ambient" intensity="0.7"></a-light>
-    <a-entity
-            id="model"
-            gltf-model="#sandCastleModel"
-            class="cantap"
-            xrextras-hold-drag
-            xrextras-two-finger-rotate
-            xrextras-pinch-scale
-            scale="3 3 3"
-            shadow="receive: false">
-    </a-entity>
-    <a-plane
-            id="ground"
-            rotation="-90 0 0"
-            width="1000"
-            height="1000"
-            material="shader: shadow"
-            shadow>
-    </a-plane>
-</a-scene>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebAR Gladiador</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- The following libraries and polyfills are recommended to maximize browser support -->
+    <!-- NOTE: you must adjust the paths as appropriate for your project -->
+
+    <!-- 🚨 REQUIRED: Web Components polyfill to support Edge and Firefox < 63 -->
+    <!--     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> -->
+
+    <!-- 💁 OPTIONAL: Intersection Observer polyfill for better performance in Safari and IE11 -->
+    <!--     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
+
+    <!-- 💁 OPTIONAL: Resize Observer polyfill improves resize behavior in non-Chrome browsers -->
+    <!--     <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script> -->
+
+    <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
+    <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+
+</head>
+<body>
+<div class="row">
+    <div id="card">
+        <!-- All you need to put beautiful, interactive 3D content on your site: -->
+        <model-viewer src="./models/dino.glb"
+                      ios-src="./models/dino.usdz"
+                      poster="./assets/gladiador.png"
+                      alt="A 3D model of an Gladiador"
+                      shadow-intensity="1"
+                      camera-controls
+                      auto-rotate ar>
+        </model-viewer>
+        <section class="attribution">
+      <span>
+        <h1>Gladiador</h1>
+        <span>By <a href="https://sketchfab.com/3d-models/gladiador-874fc7e11d674f51a4dc2082d29c9b9a" target="_blank">SketchFab</a></span>
+        <br>
+        <span>Demo by<a href="https://www.antdevelopers.com" target="_blank">ANT Developers</a></span>
+      </span>
+            <a class="cc" href="https://creativecommons.org/licenses/by/2.0/" target="_blank">
+                <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg">
+                <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg">
+            </a>
+        </section>
+    </div>
+</div>
+
+<!-- 💁 Include both scripts below to support all browsers! -->
+
+<!-- Loads <model-viewer> for modern browsers: -->
+<script type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
+<!-- Loads <model-viewer> for old browsers like IE11: -->
+<script nomodule
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+</script>
 </body>
 </html>
