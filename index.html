@@ -23,26 +23,17 @@
 
     <!-- 💁 OPTIONAL: The :focus-visible polyfill removes the focus ring for some input types -->
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
-
 </head>
 <body>
 <div class="row">
     <div id="card">
         <!-- All you need to put beautiful, interactive 3D content on your site: -->
-        <model-viewer src="./models/dino.gltf"
-                      ios-src="./models/dino.usdz"
-                      poster="./assets/gladiador.png"
-                      alt="A 3D model of an Gladiador"
-                      shadow-intensity="1"
-                      camera-controls
-                      auto-rotate ar>
-        </model-viewer>
-        <section class="attribution">
-            <a class="cc" href="https://creativecommons.org/licenses/by/2.0/" target="_blank">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg">
-            </a>
-        </section>
+        <model-viewer src="models/dino.glb"
+                      ios-src="models/dino.usdz"
+                      alt="dino 3d"
+                      ar
+                      auto-rotate
+                      camera-controls></model-viewer>
     </div>
 </div>
 
